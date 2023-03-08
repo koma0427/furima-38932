@@ -27,10 +27,9 @@ Things you may want to cover:
 ## users テーブル
 | Column                 | Type       | Options                  |
 | -----------------------| ---------- | -------------------------|
-| nickname               | string     | null: false,unique: true |
-| mail                   | string     | null: false,unique: true |
-| password               | string     | null: false,unique: true |
-| password_confirmation  | string     | null: false,unique: true |
+| nickname               | string     | null: false              |
+| email                  | string     | null: false,unique: true |
+| encrypted_password     | string     | null: false              |
 | last_name              | string     | null: false              |
 | first_name             | string     | null: false              |
 | last_name_kana         | string     | null: false              |
@@ -52,7 +51,7 @@ Things you may want to cover:
 ### Association
 - belongs_to :user
 - belongs_to :item
-
+- has_one :delivery_address
 
 ## items テーブル
 | Column              | Type       | Options                        |
@@ -60,11 +59,11 @@ Things you may want to cover:
 | user                | references | null: false, foreign_key: true |
 | name                | string     | null: false                    |
 | product_description | text       | null: false                    |
-| category            | integer    | null: false                    |
-| status              | integer    | null: false                    |
-| delivery_burden     | integer    | null: false                    |
-| delivery_sarea      | integer    | null: false                    |
-| birth_date          | integer    | null: false                    |
+| category_id         | integer    | null: false                    |
+| status_id           | integer    | null: false                    |
+| delivery_burden_id  | integer    | null: false                    |
+| prefecture_id       | integer    | null: false                    |
+| birth_date_id       | integer    | null: false                    |
 | selling_price       | integer    | null: false                    |
 
 ### Association
@@ -75,14 +74,13 @@ Things you may want to cover:
 ## delivery_addresses テーブル
 | Column         | Type       | Options                        |
 | ---------------| ---------- | ------------------------------ |
-| purchases      | references | null: false, foreign_key: true |
+| purchase       | references | null: false, foreign_key: true |
 | postcode       | string     | null: false                    |
 | prefecture_id  | integer    | null: false                    |
 | city           | string     | null: false                    |
 | block          | string     | null: false                    |
 | building       | string     |                                |
 | phone_number   | string     | null: false                    |
-| purchases_id   | string     | null: false                    |
 
 ### Association
 - belongs_to :purchase
