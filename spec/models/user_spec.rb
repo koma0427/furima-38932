@@ -61,7 +61,8 @@ RSpec.describe User, type: :model do
         @user.password = '123456'
         @user.password_confirmation = '123456'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include('Password Include both letters and numbers')
+        
       end
 
       it '全角文字を含むパスワードの場合は登録できない' do
@@ -71,10 +72,12 @@ RSpec.describe User, type: :model do
       end
 
       it 'パスワードとパスワード（確認用）が一致していない場合は登録できない' do
-        user_params = attributes_for(:user, password: 'password', password_confirmation: 'mismatch')
-        user = User.new(user_params)
-        expect(user).not_to be_valid
+        @user.password = '123456'
+        @user.password_confirmation = '1234567'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
+      
 
 
 
