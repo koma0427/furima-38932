@@ -63,7 +63,7 @@ Things you may want to cover:
 | status_id           | integer    | null: false                    |
 | delivery_burden_id  | integer    | null: false                    |
 | prefecture_id       | integer    | null: false                    |
-| delivery_time_id    | integer    | null: false                    |
+| birth_date_id       | integer    | null: false                    |
 | selling_price       | integer    | null: false                    |
 
 ### Association
