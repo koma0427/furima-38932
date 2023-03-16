@@ -40,7 +40,8 @@ RSpec.describe Item, type: :model do
     context '出品ができないとき' do
       it 'ユーザー登録している人でないと出品できない' do
         @item.user = nil
-        expect(@item).to_not be_valid
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
       end
       it '１枚画像がないと出品できない' do
         @item.image = nil
