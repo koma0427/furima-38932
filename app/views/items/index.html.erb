@@ -123,22 +123,22 @@
   <%# 商品一覧 %>
   <div class='item-contents'>
     <h2 class='title'>ピックアップカテゴリー</h2>
-    <div class="subtitle" >
+   <div class="subtitle" >
       新規投稿商品
     </div>
     <ul class='item-lists'>
 
     <% @items.each do |item| %>
       <li class='list'>
-         <%= link_to "#" do %>
+        <%= link_to item_path(item) do %>
         <div class='item-img-content'>
           <%= image_tag item.image.variant(resize: '500x500'), class: "item-img" if item.image.attached? %>
 
-          <%# <% if item.present? %> %>
+          <%# <% if item.present? %> 
             <div class='sold-out'>
             <span>Sold Out!!</span>
           </div>
-          <%# <% end %> %>
+          <%# <% end %> 
 
         <% end %>
         </div>
