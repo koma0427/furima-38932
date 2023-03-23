@@ -19,7 +19,7 @@ class PurchaseForm
     
     # 各テーブルにデータを保存する処理を書く
     purchase = Purchase.create(user_id: user_id, item_id: item_id)
-    delivery_address.create(purchase_id: purchase.id, postcode: postcode, prefecture_id: prefecture_id, city: city, block: block, building: building, phone_number: phone_number)
+    Dlivery_Address.create(purchase_id: purchase.id, postcode: postcode, prefecture_id: prefecture_id, city: city, block: block, building: building, phone_number: phone_number)
 
   end
 end
