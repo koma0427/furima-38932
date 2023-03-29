@@ -127,36 +127,37 @@
       新規投稿商品
     </div>
     <ul class='item-lists'>
-
+      
+      <%# 商品データがある場合は、eachメソッドで一覧表示する %>
     <% @items.each do |item| %>
       <li class='list'>
         <%= link_to item_path(item) do %>
         <div class='item-img-content'>
-          <%= image_tag item.image.variant(resize: '500x500'), class: "item-img" if item.image.attached? %>
-
-          <%# <% if item.present? %> 
-            <div class='sold-out'>
+        <%= image_tag item.image.variant(resize: '500x500'), class: "item-img" if item.image.attached? %>
+          <%# 商品が売れていればsold outを表示(.present?でも可) %>
+          <% if item.purchase != nil %>
+          <div class='sold-out'>
             <span>Sold Out!!</span>
           </div>
-          <%# <% end %> 
-
-        <% end %>
+          <% end %>
         </div>
         <div class='item-info'>
           <h3 class='item-name'>
-             <%= item.name %>
+            <%= item.name %>
           </h3>
-        <div class='item-price'>
-          <span><%= item.selling_price%>円 <br> <%=item.delivery_burden.name %></span>
-          <div class='star-btn'>
-            <%= image_tag "star.png", class:"star-icon" %>
-            <span class='star-count'>0</span>
+          <div class='item-price'>
+            <span><%= item.selling_price %>円<br><%= item.delivery_burden.name %></span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>0</span>
             </div>
           </div>
         </div>
         <% end %>
       </li>
-      
+      <% end %>
+
+
        <% if @items.blank? then %> 
       <li class='list'>
         <%= link_to '#' do %>
