@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe PurchaseForm, type: :model do
   before do
-    @purchase_form = FactoryBot.build(:purchase_form)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @purchase_form = FactoryBot.build(:purchase_form, user_id: user.id, item_id: item.id)
   end
 
   describe '配送先情報の保存' do
@@ -11,11 +13,11 @@ RSpec.describe PurchaseForm, type: :model do
         expect(@purchase_form).to be_valid
       end
       it 'user_idが空でなければ保存できる' do
-        @purchase_form.user_id = 1
+        @purchase_form.user_id = FactoryBot.create(:user).id
         expect(@purchase_form).to be_valid
       end
       it 'item_idが空でなければ保存できる' do
-        @purchase_form.item_id = 1
+        @purchase_form.item_id = FactoryBot.create(:item).id
         expect(@purchase_form).to be_valid
       end
       it '郵便番号が「3桁＋ハイフン＋4桁」の組み合わせであれば保存できる' do
@@ -58,7 +60,7 @@ RSpec.describe PurchaseForm, type: :model do
       it '郵便番号が空だと保存できないこと' do
         @purchase_form.postcode = nil
         @purchase_form.valid?
-        expect(@purchase_form.errors.full_messages).to include("Postcode can't be blank", 'Postcode is invalid. Include hyphen(-)')
+        expect(@purchase_form.errors.full_messages).to include("Postcode can't be blank")
       end
       it '郵便番号にハイフンがないと保存できないこと' do
         @purchase_form.postcode = 1_234_567
@@ -95,10 +97,17 @@ RSpec.describe PurchaseForm, type: :model do
         @purchase_form.valid?
         expect(@purchase_form.errors.full_messages).to include('Phone number is invalid')
       end
-      it '電話番号が12桁以上あると保存できないこと' do
-        @purchase_form.phone_number = 12_345_678_910_123_111
+      it '電話番号が9桁以下では保存できないこと' do
+        @purchase_form.phone_number = '123456789'
         @purchase_form.valid?
         expect(@purchase_form.errors.full_messages).to include('Phone number is invalid')
+      end
+      
+      it '電話番号が12桁以上では保存できないこと' do
+        @purchase_form.phone_number = '1234567890123'
+        @purchase_form.valid?
+        expect(@purchase_form.errors.full_messages).to include('Phone number is invalid')
+
       end
       it 'トークンが空だと保存できないこと' do
         @purchase_form.token = nil
