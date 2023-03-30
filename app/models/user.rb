@@ -14,5 +14,5 @@ class User < ApplicationRecord
     validates :last_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
     validates :first_name_kana, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
     validates :birth_date, presence: true
-    validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'Include both letters and numbers' }
+    validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i,  message: 'は英字と数字の両方を含めてください'  }
   end

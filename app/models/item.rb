@@ -29,5 +29,5 @@ class Item < ApplicationRecord
     end
     
     #ジャンルの選択が「---」の時は保存できないようにする
-    validates :category_id, :status_id, :delivery_burden_id, :prefecture_id, :delivery_time_id, numericality: { other_than: 1, message: "can't be blank" }
+    validates :category_id, :status_id, :delivery_burden_id, :prefecture_id, :delivery_time_id, numericality: { other_than: 1, message: "を選択してください " }
 end
